@@ -15,8 +15,7 @@ var livereload = require('gulp-livereload')
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
 var dependencies = [
-  'react',
-  'react/addons'
+  'react'
 ]
 
 var browserifyTask = function (options) {
@@ -64,13 +63,6 @@ var browserifyTask = function (options) {
   // we develop. When deploying the dependencies will be included
   // in the application bundle
   if (options.development) {
-
-    // Remove react-addons when deploying, as it is only for
-    // testing
-    if (!options.development) {
-      dependencies.splice(dependencies.indexOf('react-addons'), 1)
-    }
-
     var vendorsBundler = browserify({
       debug: true,
       require: dependencies
@@ -126,7 +118,7 @@ gulp.task('default', function () {
 
   cssTask({
     development: true,
-    src: './styles/**/*.css',
+    src: ['./node_modules/bootstrap/dist/css/bootstrap.css', './styles/**/*.css'],
     dest: './build'
   })
 
@@ -142,7 +134,7 @@ gulp.task('deploy', function () {
 
   cssTask({
     development: false,
-    src: './styles/**/*.css',
+    src: ['./node_modules/bootstrap/dist/css/bootstrap.css', './styles/**/*.css'],
     dest: './dist'
   })
 
