@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard",
-    "dev": "gulp & nodemon index --ignore client"
+    "dev": "gulp & nodemon index --ignore client --ignore build"
   },
   "author": "Francisco Dias <francisco@baiodias.com> (http://franciscodias.net/)",
   "license": "MIT",

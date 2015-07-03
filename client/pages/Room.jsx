@@ -21,10 +21,9 @@ module.exports = React.createClass({
         return
       }
 
-      console.log('room', data)
-
       self.setState({
-        players: data.room.players
+        players: data.room.players,
+        isLeader: data.room.leader === self.state.me.id
       })
     })
 
@@ -37,6 +36,14 @@ module.exports = React.createClass({
         console.log('enroll confirmed')
         self.setState({status: 'enrolled'})
       }
+    })
+
+    app.socket.on('room:game:start', function (data) {
+      console.log('room:game:start', data)
+      if (data.roomId !== self.state.roomId) {
+        return
+      }
+      self.setState({status: 'playing'})
     })
 
     app.socket.emit('room:get', {
@@ -65,13 +72,30 @@ module.exports = React.createClass({
       player: me
     })
   },
+  handleStartGameClick: function () {
+    app.socket.emit('room:game:start', {
+      roomId: this.state.roomId
+    })
+  },
   render: function () {
     var content
 
     if (this.state.status === 'anonymous') {
-      content = (
-        <EnrollForm onChange={this.handleEnroll}/>
-      )
+      content = (<EnrollForm onChange={this.handleEnroll}/>)
+    }
+
+    if (this.state.status === 'enrolled') {
+      if (this.state.players.length < 2) {
+        content = (<span>Waiting for more players to join...</span>)
+      } else if (this.state.isLeader) {
+        content = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
+      } else {
+        content = (<span>Waiting for leader to start the game...</span>)
+      }
+    }
+
+    if (this.state.status === 'playing') {
+      content = (<div>THE GAME</div>)
     }
 
     return (
