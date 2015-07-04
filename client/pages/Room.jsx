@@ -3,6 +3,7 @@ var app = require('ampersand-app')
 
 var EnrollForm = require('../views/room/EnrollForm.jsx')
 var PlayerList = require('../views/room/PlayerList.jsx')
+var Game = require('../views/room/Game.jsx')
 
 module.exports = React.createClass({
   displayName: 'Room',
@@ -95,7 +96,7 @@ module.exports = React.createClass({
     }
 
     if (this.state.status === 'playing') {
-      content = (<div>THE GAME</div>)
+      content = (<Game me={this.state.me} roomId={this.state.roomId} players={this.state.players}/>)
     }
 
     return (
