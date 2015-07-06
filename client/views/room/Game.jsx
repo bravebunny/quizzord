@@ -21,7 +21,7 @@ module.exports = React.createClass({
   handleAnswer: function (answer) {
     console.log('handleAnswer', answer)
     app.socket.emit('room:game:round:answer', {
-      roomId: this.state.roomId,
+      roomId: this.props.roomId,
       playerId: this.props.me.id,
       answer: answer
     })
