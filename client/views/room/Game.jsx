@@ -1,21 +1,29 @@
 var React = require('react')
 var app = require('ampersand-app')
+var _ = require('lodash')
 
 var TextQuestion = require('../questions/Text.jsx')
 
 module.exports = React.createClass({
   displayName: 'Game',
   getInitialState: function () {
-    return {}
+    return { }
   },
   componentDidMount: function () {
     var self = this
     app.socket.on('room:game:round:start', function (data) {
       console.log('room:game:round:start', data)
-      self.setState({question: data.question})
+      self.setState({
+        status: 'playing',
+        question: data.question
+      })
     })
     app.socket.on('room:game:round:end', function (data) {
       console.log('room:game:round:end', data)
+      self.setState({
+        status: 'end-round',
+        responses: data.responses
+      })
     })
   },
   handleAnswer: function (answer) {
@@ -27,15 +35,30 @@ module.exports = React.createClass({
     })
   },
   render: function () {
-    var content = (<h4>Loading...</h4>)
-
-    if (this.state.question && this.state.question.kind === 'text') {
-      content = (<TextQuestion question={this.state.question} onAnswer={this.handleAnswer}/>)
+    if (this.state.status === 'playing') {
+      if (this.state.question && this.state.question.kind === 'text') {
+        return (<TextQuestion question={this.state.question} onAnswer={this.handleAnswer}/>)
+      }
     }
-    return (
-      <div>
-        {content}
-      </div>
-    )
+
+    if (this.state.status === 'end-round') {
+      var list = []
+      _.forIn(this.state.responses, function (response, key) {
+        list.push((
+          <li>
+            {response.playerId}: {response.isCorrect ? 'correct' : 'incorrect'} ({response.time / 1000}s)
+          </li>
+        ))
+      })
+
+      return (
+        <div>
+          <h4>Results</h4>
+          <ul>{list}</ul>
+        </div>
+      )
+    }
+
+    return (<h4>Loading...</h4>)
   }
 })
