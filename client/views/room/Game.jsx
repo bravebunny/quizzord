@@ -28,7 +28,8 @@ module.exports = React.createClass({
     app.socket.on('room:game:end', function (data) {
       console.log('room:game:end', data)
       self.setState({
-        status: 'end-game'
+        status: 'end-game',
+        results: data.results
       })
     })
   },
@@ -49,10 +50,10 @@ module.exports = React.createClass({
 
     if (this.state.status === 'end-round') {
       var list = []
-      _.forIn(this.state.responses, function (response, key) {
+      _.forIn(this.state.responses, function (response, playerId) {
         list.push((
           <li>
-            {response.playerId}: {response.isCorrect ? 'correct' : 'incorrect'} ({response.time / 1000}s)
+            {playerId}: {response.isCorrect ? 'correct' : 'incorrect'} ({response.time / 1000}s)
           </li>
         ))
       })
@@ -66,9 +67,20 @@ module.exports = React.createClass({
     }
 
     if (this.state.status === 'end-game') {
+      var list = []
+      _.forIn(this.state.results, function (result, playerId) {
+        list.push((
+          <li>
+            {playerId}: {result.points} points {result.isWinner ? 'Winner!' : ''}
+          </li>
+        ))
+      })
+
       return (
         <div>
-          <h4>The end!</h4>
+          <h4>Results</h4>
+          <ul>{list}</ul>
+          <b>The end!</b>
         </div>
       )
     }
