@@ -25,6 +25,12 @@ module.exports = React.createClass({
         responses: data.responses
       })
     })
+    app.socket.on('room:game:end', function (data) {
+      console.log('room:game:end', data)
+      self.setState({
+        status: 'end-game'
+      })
+    })
   },
   handleAnswer: function (answer) {
     console.log('handleAnswer', answer)
@@ -59,6 +65,13 @@ module.exports = React.createClass({
       )
     }
 
+    if (this.state.status === 'end-game') {
+      return (
+        <div>
+          <h4>The end!</h4>
+        </div>
+      )
+    }
     return (<h4>Loading...</h4>)
   }
 })
