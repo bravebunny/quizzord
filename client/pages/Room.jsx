@@ -47,6 +47,14 @@ module.exports = React.createClass({
       self.setState({status: 'playing'})
     })
 
+    app.socket.on('room:game:end', function (data) {
+      console.log('room:game:end', data)
+      if (data.roomId !== self.state.roomId) {
+        return
+      }
+      self.setState({status: 'ended'})
+    })
+
     app.socket.emit('room:get', {
       roomId: this.state.roomId
     })
@@ -79,7 +87,7 @@ module.exports = React.createClass({
     })
   },
   render: function () {
-    var content
+    var content, button
 
     if (this.state.status === 'anonymous') {
       content = (<EnrollForm onChange={this.handleEnroll}/>)
@@ -89,14 +97,18 @@ module.exports = React.createClass({
       if (this.state.players.length < 2) {
         content = (<span>Waiting for more players to join...</span>)
       } else if (this.state.isLeader) {
-        content = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
+        button = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
       } else {
         content = (<span>Waiting for leader to start the game...</span>)
       }
     }
 
-    if (this.state.status === 'playing') {
+    if (this.state.status === 'playing' || this.state.status === 'ended') {
       content = (<Game me={this.state.me} roomId={this.state.roomId} players={this.state.players}/>)
+    }
+
+    if (this.state.status === 'ended' && this.state.isLeader) {
+      button = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Restart game!</button>)
     }
 
     return (
@@ -106,6 +118,7 @@ module.exports = React.createClass({
         <PlayerList players={this.state.players}/>
 
         {content}
+        {button}
       </div>
     )
   }
