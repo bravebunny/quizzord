@@ -3,6 +3,7 @@ var app = require('ampersand-app')
 var _ = require('lodash')
 
 var TextQuestion = require('../questions/Text.jsx')
+var ImageQuestion = require('../questions/Image.jsx')
 
 module.exports = React.createClass({
   displayName: 'Game',
@@ -45,6 +46,9 @@ module.exports = React.createClass({
     if (this.state.status === 'playing') {
       if (this.state.question && this.state.question.kind === 'text') {
         return (<TextQuestion question={this.state.question} onAnswer={this.handleAnswer}/>)
+      }
+      if (this.state.question && this.state.question.kind === 'image') {
+        return (<ImageQuestion question={this.state.question} onAnswer={this.handleAnswer}/>)
       }
     }
 
