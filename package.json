@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "standard",
-    "dev": "gulp & nodemon index --ignore client --ignore build"
+    "dev": "gulp & nodemon index --ignore client --ignore build",
+    "start": "gulp deploy & node index"
   },
   "author": "Francisco Dias <francisco@baiodias.com> (http://franciscodias.net/)",
   "license": "MIT",
@@ -13,8 +14,11 @@
     "ampersand-app": "^1.0.4",
     "ampersand-react-mixin": "^0.1.3",
     "ampersand-router": "^3.0.2",
+    "animals": "0.0.3",
+    "async": "^1.3.0",
     "boom": "^2.8.0",
     "bootstrap": "^3.3.5",
+    "flickrapi": "^0.3.34",
     "hapi": "^8.6.1",
     "joi": "^6.5.0",
     "local-links": "^1.4.0",
