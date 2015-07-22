@@ -26,8 +26,8 @@ module.exports = React.createClass({
     return (
       <div>
         <h4>{this.props.question.question}</h4>
-        <img src={this.props.question.imageUrl} />
-        {options}
+        <div><img src={this.props.question.imageUrl} /></div>
+        <div>{options}</div>
       </div>
     )
   }
