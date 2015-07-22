@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard",
     "dev": "gulp & nodemon index --ignore client --ignore build",
-    "start": "gulp deploy & node index"
+    "start": "gulp deploy && node index"
   },
   "author": "Francisco Dias <francisco@baiodias.com> (http://franciscodias.net/)",
   "license": "MIT",
