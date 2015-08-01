@@ -5,6 +5,8 @@ var EnrollForm = require('../views/room/EnrollForm.jsx')
 var PlayerList = require('../views/room/PlayerList.jsx')
 var Game = require('../views/room/Game.jsx')
 
+var MIN_PLAYERS = 1
+
 module.exports = React.createClass({
   displayName: 'Room',
   getInitialState: function () {
@@ -94,7 +96,7 @@ module.exports = React.createClass({
     }
 
     if (this.state.status === 'enrolled') {
-      if (this.state.players.length < 2) {
+      if (this.state.players.length < MIN_PLAYERS) {
         content = (<span>Waiting for more players to join...</span>)
       } else if (this.state.isLeader) {
         button = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
