@@ -4,7 +4,7 @@
   "description": "Quizz game",
   "main": "index.js",
   "scripts": {
-    "test": "standard",
+    "lint": "standard",
     "dev": "gulp & nodemon index --ignore client --ignore build | bunyan -o short",
     "start": "gulp deploy && node index | bunyan -o short"
   },
