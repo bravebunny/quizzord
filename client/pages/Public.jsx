@@ -12,15 +12,12 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div className='container'>
-        <div className='jumbotron'>
-          <h1>quizzord</h1>
-          <p>Welcome!</p>
-          <p>
-            <a onClick={this.onMainRoomClick} className='btn btn-lg btn-primary'>
-              Go to main room
-            </a>
-          </p>
-        </div>
+        <h1>Welcome!</h1>
+        <p>
+          <a onClick={this.onMainRoomClick} className='btn btn-lg btn-primary'>
+            Go to main room
+          </a>
+        </p>
       </div>
     )
   }

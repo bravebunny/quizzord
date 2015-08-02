@@ -1,3 +1,23 @@
 body {
+	font-family: sans-serif;
 	background-color: white;
+	color: #444;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #666;
+	font-family: 'Luckiest Guy', cursive;
+}
+
+.header .logo {
+	padding-top: 40px;
+	font-size: 50px;
+	text-decoration: none;
+	font-family: 'Luckiest Guy', cursive;
+}
+
+.header .logo a {
+	color: #555;
+	text-decoration: none;
 }

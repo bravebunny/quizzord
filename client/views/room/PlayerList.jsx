@@ -22,7 +22,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <h4>Players</h4>
+        <h2>Players</h2>
         <ul>
           { players }
         </ul>

@@ -23,7 +23,7 @@ module.exports = Router.extend({
   },
 
   home: function () {
-    React.render(<PublicPage/>, document.body)
+    this.renderPage(PublicPage)
   },
 
   room: function (roomname) {

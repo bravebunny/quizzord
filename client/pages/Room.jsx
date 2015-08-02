@@ -15,7 +15,8 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       roomId: this.props.room,
-      status: 'anonymous',
+      gameStatus: 'waiting',
+      playerStatus: 'anonymous',
       players: [],
       me: {}
     }
@@ -40,7 +41,7 @@ module.exports = React.createClass({
       }
       if (data.player.id === self.state.me.id) {
         console.log('enroll confirmed')
-        self.setState({status: 'enrolled'})
+        self.setState({playerStatus: 'enrolled'})
       }
     })
 
@@ -49,7 +50,7 @@ module.exports = React.createClass({
       if (data.roomId !== self.state.roomId) {
         return
       }
-      self.setState({status: 'playing'})
+      self.setState({gameStatus: 'playing'})
     })
 
     app.socket.on('room:game:end', function (data) {
@@ -57,7 +58,7 @@ module.exports = React.createClass({
       if (data.roomId !== self.state.roomId) {
         return
       }
-      self.setState({status: 'ended'})
+      self.setState({gameStatus: 'ended'})
     })
 
     app.socket.emit('room:get', {
@@ -92,38 +93,41 @@ module.exports = React.createClass({
     })
   },
   render: function () {
-    var content, button
+    var mainContent, sideContent, mainControls
 
-    if (this.state.status === 'anonymous') {
-      content = (<EnrollForm onChange={this.handleEnroll}/>)
+    if (this.state.playerStatus === 'anonymous') {
+      sideContent = (<EnrollForm onChange={this.handleEnroll}/>)
     }
 
-    if (this.state.status === 'enrolled') {
+    if (this.state.gameStatus === 'waiting') {
       if (this.state.players.length < MIN_PLAYERS) {
-        content = (<span>Waiting for more players to join...</span>)
+        mainContent = (<span>Waiting for more players to join...</span>)
       } else if (this.state.isLeader) {
-        button = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
+        mainControls = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
       } else {
-        content = (<span>Waiting for leader to start the game...</span>)
+        mainContent = (<span>Waiting for leader to start the game...</span>)
       }
     }
 
-    if (this.state.status === 'playing' || this.state.status === 'ended') {
-      content = (<Game me={this.state.me} roomId={this.state.roomId} players={this.state.players}/>)
+    if (this.state.gameStatus === 'playing' || this.state.gameStatus === 'ended') {
+      mainContent = (<Game me={this.state.me} roomId={this.state.roomId} players={this.state.players}/>)
     }
 
-    if (this.state.status === 'ended' && this.state.isLeader) {
-      button = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Restart game!</button>)
+    if (this.state.gameStatus === 'ended' && this.state.isLeader) {
+      mainControls = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Restart game!</button>)
     }
 
     return (
-      <div>
-        <h1>Room {this.state.roomId}</h1>
-
-        <PlayerList players={this.state.players}/>
-
-        {content}
-        {button}
+      <div className='row'>
+        <div className='col-md-8'>
+          <h2>#{this.state.roomId}</h2>
+          {mainContent}
+          {mainControls}
+        </div>
+        <div className='col-md-4'>
+          <PlayerList players={this.state.players}/>
+          {sideContent}
+        </div>
       </div>
     )
   }
