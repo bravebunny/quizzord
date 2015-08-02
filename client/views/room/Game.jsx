@@ -62,7 +62,7 @@ module.exports = React.createClass({
       _.forIn(this.state.responses, function (response, playerId) {
         list.push((
           <li>
-            {playerId}: {response.isCorrect ? 'correct' : 'incorrect'} ({response.time / 1000}s)
+            <b>{playerId}</b>: {response.isCorrect ? 'correct' : 'incorrect'} ({response.time / 1000}s)
           </li>
         ))
       })
@@ -79,7 +79,7 @@ module.exports = React.createClass({
       _.forIn(this.state.results, function (result, playerId) {
         list.push((
           <li>
-            {playerId}: {result.points} points {result.isWinner ? 'Winner!' : ''}
+            <b>{playerId}</b>: {result.points} points <i>{result.isWinner ? 'Winner!' : ''}</i>
           </li>
         ))
       })
@@ -88,7 +88,7 @@ module.exports = React.createClass({
         <div>
           <h4>Results</h4>
           <ul>{list}</ul>
-          <b>The end!</b>
+          <h2>The end!</h2>
         </div>
       )
     }

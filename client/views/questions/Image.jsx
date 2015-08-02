@@ -20,18 +20,27 @@ module.exports = React.createClass({
     var options = this.props.question.options.map(function (o, i) {
       if (self.state.answer) {
         if (self.state.answer === i) {
-          return (<button className='btn btn-primary' disabled><b>{o}</b></button>)
+          return (<div className='option'><button className='btn btn-lg btn-primary' disabled><b>{o}</b></button></div>)
         }
-        return (<button className='btn' disabled>{o}</button>)
+        return (<div className='option'><button className='btn btn-lg' disabled>{o}</button></div>)
       }
-      return (<button data-value={JSON.stringify(i)} className='btn btn-primary' onClick={self.handleClick}>{o}</button>)
+      return (
+        <div className='option'>
+          <button data-value={JSON.stringify(i)} className='btn btn-lg btn-primary' onClick={self.handleClick}>{o}</button>
+        </div>)
     })
 
     return (
-      <div>
+      <div className='image-question'>
         <h4>{this.props.question.question}</h4>
-        <div><img src={this.props.question.imageUrl} /></div>
-        <div>{options}</div>
+        <div className='row'>
+          <div className='col-md-8'>
+            <img src={this.props.question.imageUrl} />
+          </div>
+          <div className='col-md-4'>
+            <div className='options'>{options}</div>
+          </div>
+        </div>
       </div>
     )
   }

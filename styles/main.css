@@ -21,3 +21,15 @@ h1, h2, h3, h4, h5, h6 {
 	color: #555;
 	text-decoration: none;
 }
+
+.image-question img {
+	width: 100%;
+}
+
+.options .option {
+	margin-bottom: 10px;
+}
+
+.options .option button {
+	width: 100%;
+}

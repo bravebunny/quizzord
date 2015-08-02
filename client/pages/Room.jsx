@@ -101,9 +101,13 @@ module.exports = React.createClass({
 
     if (this.state.gameStatus === 'waiting') {
       if (this.state.players.length < MIN_PLAYERS) {
-        mainContent = (<span>Waiting for more players to join...</span>)
+        if (this.state.playerStatus === 'anonymous') {
+          mainContent = (<span>Enroll yourself on the side bar to play!</span>)
+        } else {
+          mainContent = (<span>Waiting for more players to join...</span>)
+        }
       } else if (this.state.isLeader) {
-        mainControls = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
+        mainControls = (<button className='btn btn-lg btn-primary' onClick={this.handleStartGameClick}>Start game!</button>)
       } else {
         mainContent = (<span>Waiting for leader to start the game...</span>)
       }
@@ -114,7 +118,7 @@ module.exports = React.createClass({
     }
 
     if (this.state.gameStatus === 'ended' && this.state.isLeader) {
-      mainControls = (<button className='btn btn-primary' onClick={this.handleStartGameClick}>Restart game!</button>)
+      mainControls = (<button className='btn btn-lg btn-primary' onClick={this.handleStartGameClick}>Restart game!</button>)
     }
 
     return (
