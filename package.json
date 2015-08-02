@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "snazzy",
     "dev": "gulp & nodemon index --ignore client --ignore build | bunyan -o short",
-    "start": "gulp deploy && node index | bunyan -o short"
+    "start": "gulp && node index | bunyan -o short",
+    "bundle": "gulp"
   },
   "pre-commit": [
     "lint"
