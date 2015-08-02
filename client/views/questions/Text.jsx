@@ -2,6 +2,10 @@ var React = require('react')
 
 module.exports = React.createClass({
   displayName: 'TextQuestion',
+  propTypes: {
+    onAnswer: React.PropTypes.func,
+    question: React.PropTypes.object
+  },
   getInitialState: function () {
     return {}
   },

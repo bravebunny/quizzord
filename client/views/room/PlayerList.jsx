@@ -2,6 +2,9 @@ var React = require('react')
 
 module.exports = React.createClass({
   displayName: 'PlayerList',
+  propTypes: {
+    players: React.PropTypes.array
+  },
   render: function () {
     var players = []
 

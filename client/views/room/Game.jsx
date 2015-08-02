@@ -7,6 +7,10 @@ var ImageQuestion = require('../questions/Image.jsx')
 
 module.exports = React.createClass({
   displayName: 'Game',
+  propTypes: {
+    roomId: React.PropTypes.string,
+    me: React.PropTypes.object
+  },
   getInitialState: function () {
     return { }
   },
@@ -52,8 +56,9 @@ module.exports = React.createClass({
       }
     }
 
+    var list = []
+
     if (this.state.status === 'end-round') {
-      var list = []
       _.forIn(this.state.responses, function (response, playerId) {
         list.push((
           <li>
@@ -71,7 +76,6 @@ module.exports = React.createClass({
     }
 
     if (this.state.status === 'end-game') {
-      var list = []
       _.forIn(this.state.results, function (result, playerId) {
         list.push((
           <li>

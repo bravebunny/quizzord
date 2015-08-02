@@ -2,6 +2,9 @@ var React = require('react')
 
 module.exports = React.createClass({
   displayName: 'EnrollForm',
+  propTypes: {
+    onChange: React.PropTypes.func
+  },
   handleSubmit: function (ev) {
     ev.preventDefault()
     var name = this.refs.name.getDOMNode().value

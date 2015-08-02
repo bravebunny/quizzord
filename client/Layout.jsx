@@ -21,7 +21,6 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var me = this.props
     return (
       <div onClick={this.onClick}>
         <nav className='navbar navbar-default'>

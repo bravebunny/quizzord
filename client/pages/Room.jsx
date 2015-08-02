@@ -9,6 +9,9 @@ var MIN_PLAYERS = 1
 
 module.exports = React.createClass({
   displayName: 'Room',
+  propTypes: {
+    room: React.PropTypes.string
+  },
   getInitialState: function () {
     return {
       roomId: this.props.room,
