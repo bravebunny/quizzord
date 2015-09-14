@@ -1,7 +1,7 @@
 var pack = require('./package')
 
 var config = {
-  port: 9090 || process.env.QUIZZORD_PORT
+  port: process.env.PORT || 9090
 }
 
 config.flickr = {
@@ -11,7 +11,7 @@ config.flickr = {
 
 config.bunyan = {
   name: pack.name,
-  level: process.env.CANNON_LOG_LEVEL || 'trace'
+  level: process.env.QUIZZORD_LOG_LEVEL || 'trace'
 }
 
 module.exports = config

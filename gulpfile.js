@@ -129,13 +129,13 @@ gulp.task('deploy', function () {
   browserifyTask({
     development: false,
     src: './client/main.js',
-    dest: './dist'
+    dest: './build'
   })
 
   cssTask({
     development: false,
     src: ['./node_modules/bootstrap/dist/css/bootstrap.css', './styles/**/*.css'],
-    dest: './dist'
+    dest: './build'
   })
 
 })
